@@ -1,15 +1,14 @@
 import { put, delay, all, takeEvery } from "redux-saga/effects";
-import { INCREMENT_ASYNC, INCREMENT_ASYNC_REQUEST } from "../types";
+import { INCREMENT_ASYNC_REQUEST } from "../types";
+import * as actions from "../actions/counter";
 
-function* incrementSaga(action) {
+function* incrementSaga() {
   yield delay(1000);
-  yield put({
-    type: INCREMENT_ASYNC,
-    payload: action.payload,
-  });
+  const payload = 10;
+  yield put(actions.incrementAsync(payload));
 }
 
-export default function* counterSaga() {
+export default function* watchCounter() {
+  // listen INCREMENT_ASYNC_REQUEST action and excute incrementSaga function
   yield takeEvery(INCREMENT_ASYNC_REQUEST, incrementSaga);
 }
-
